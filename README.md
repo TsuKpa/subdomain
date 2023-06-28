@@ -93,7 +93,13 @@ function run(cmd) {
 }
 
 // usage example
-;(async () => {
-  const result = await run('echo "hello"')
+(async () => {
+
+  const result = await run('sed -i s/subdomain/user1/g subdomain.conf')
+  const result = await run('sed -i s/3001/1234/g subdomain.conf')
+  const result = await run('cp subdomain.conf /etc/nginx/sites-available/subdomain.conf')
+  const result = await run('ln -s /etc/nginx/sites-available/test1.conf /etc/nginx/sites-enabled/')
+  const result = await run('nginx -t')
+  const result = await run('sudo service nginx reload')
   console.log(result) // hello
-})()
+})();
