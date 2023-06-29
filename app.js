@@ -1,6 +1,7 @@
 process.env = require('./.env.js');
 const express = require('express');
 const { exec } = require('child_process')
+const bodyParser = require('body-parser')
 
 // const vhost = require('vhost');
 // const rootDomainRoutes = require('./routes/rootdomain_route');
@@ -35,8 +36,8 @@ const main = async () => {
     const app = express();
     const port = process.env.PORT;
 
-    app.use(express.json());
-    app.use(express.urlencoded({ extended: false }));
+    app.use(bodyParser.json())
+    app.use(bodyParser.urlencoded({ extended: false }))
 
     // app.use(vhost(process.env.DOMAIN, rootDomainRoutes))
     //     .use(vhost('www.' + process.env.DOMAIN, rootDomainRoutes));
@@ -48,12 +49,16 @@ const main = async () => {
     app.post('/', async (req, res) => {
         // res.send('POST request to the homepage');
         console.log(req.headers, req.body);
+        const body = JSON.stringify(req.body);
         const data = {
-            name: req.body.name || null,
-            port: req.body.port || null
+            name: body.name || null,
+            port: body.port || null
         };
         if (data.name && data.port) {        
             await configNginx(req.body.name, req.body.port);
+            return res.status(200).json();
+        } else {
+            res.send('Need params to execute (name, port)');
         }
     });
 
