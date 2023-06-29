@@ -48,12 +48,12 @@ const main = async () => {
     
     app.post('/', async (req, res) => {
         // res.send('POST request to the homepage');
-        console.log(req.headers, req.body);
         const body = JSON.stringify(req.body);
         const data = {
             name: body.name || null,
             port: body.port || null
         };
+        console.log(data, body);
         if (data.name && data.port) {        
             await configNginx(req.body.name, req.body.port);
             return res.status(200).json();
