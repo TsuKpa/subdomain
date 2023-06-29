@@ -25,6 +25,34 @@
 
 ### 2.1 Cấu hình EC2
 
+- Cài đặt snap
+
+```bash
+sudo apt install snapd
+sudo snap install core; sudo snap refresh core
+```
+
+- Cấu hình SSL cho domain
+
+```bash
+sudo snap install --classic certbot
+sudo ln -s /snap/bin/certbot /usr/bin/certbot
+sudo snap set certbot trust-plugin-with-root=ok
+
+```
+
+Trỏ domain về public IPv4 của EC2 bằng A record, sau đó thêm 1 TXT record với name là "_acme-challenge" và giá trị là output của dòng lệnh bên dưới. Sau đó nhập email và đợi đến khi nào có record ở [tool của google](https://toolbox.googleapps.com/apps/dig) thì nhấn Enter để nó lưu.
+
+```bash
+sudo certbot certonly --manual --preferred-challenges=dns -d <yourdomain.com> -i nginx
+```
+
+Thêm 1 value trong record phía trên để nó tạo SSL cho các subdomain. Cách làm cũng tương tự.
+
+```bash
+sudo certbot certonly --manual --preferred-challenges=dns -d <*.yourdomain.com> -i nginx
+```
+
 - Cài đặt Nginx
 
 ```bash
@@ -75,37 +103,23 @@ sudo ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/
 sudo service nginx reload
 ```
 
-- Cài đặt snap
-
-```bash
-sudo apt install snapd
-sudo snap install core; sudo snap refresh core
-```
-
-- Cấu hình SSL cho domain
-
-```bash
-sudo snap install --classic certbot
-sudo ln -s /snap/bin/certbot /usr/bin/certbot
-sudo snap set certbot trust-plugin-with-root=ok
-
-```
-
-Trỏ domain về public IPv4 của EC2 bằng A record, sau đó thêm 1 TXT record với name là "_acme-challenge" và giá trị là output của dòng lệnh bên dưới. Sau đó nhập email và đợi đến khi nào có record ở [tool của google](https://toolbox.googleapps.com/apps/dig) thì nhấn Enter để nó lưu.
-
-```bash
-sudo certbot certonly --manual --preferred-challenges=dns -d <yourdomain.com> -i nginx
-```
-
-Thêm 1 value trong record phía trên để nó tạo SSL cho các subdomain. Cách làm cũng tương tự.
-
-```bash
-sudo certbot certonly --manual --preferred-challenges=dns -d <*.yourdomain.com> -i nginx
-```
-
 - Cài đặt docker và tạo test container với port __3040__, 
 
 ```bash
+# Cài đặt docker
+sudo apt update
+sudo apt install apt-transport-https ca-certificates curl software-properties-common
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable"
+apt-cache policy docker-ce
+sudo apt install docker-ce
+sudo systemctl status docker
+
+# Sử dụng docker không cần sudo
+sudo usermod -aG docker ${USER}
+su - ${USER}
+sudo usermod -aG docker username
+
 # Pull image
 sudo docker create httpd
 
