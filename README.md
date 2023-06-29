@@ -1,5 +1,6 @@
-subdomain create app
+#### subdomain create app
 
+``` bash
 1. docker create httpd
 2. docker run -dit --name container1 -p 8080:80 httpd
 3. docker run -dit --name container2 -p 8081:80 httpd
@@ -7,6 +8,7 @@ subdomain create app
 5. docker exec bd4b11fa32b6 sed -i 's/It works!/Container 2/' /usr/local/apache2/htdocs/index.html
 6. vi /etc/nginx/sites-available/test1.conf
 7. vi /etc/nginx/sites-available/test2.conf
+```
 
 server {
     listen 80;
@@ -22,6 +24,7 @@ server {
 10. nginx -t
 11. sudo service nginx reload
 
+``` nginx
 # For use in /etc/nginx/sites-available/default
 
 # This directive redirects all(All is denoted by a dot prefix on the domain) HTTP requests of vietnoy.xyz and *.vietnoy.xyz to their HTTPS versions respectively
@@ -35,7 +38,6 @@ server {
 }
 
 # This directive tells Nginx to use HTTP2 and SSL. And also proxy requests of <https://vietnoy.xyz> to a local Node.js app running on port 9000
-
 server {
     listen 443 ssl http2;
     listen [::]:443 ssl http2;
@@ -79,7 +81,9 @@ server {
     proxy_redirect off;
   }
 }
+```
 
+``` js
 const { exec } = require('child_process')
 
 function run(cmd) {
@@ -103,12 +107,13 @@ function run(cmd) {
   const result = await run('sudo service nginx reload')
   console.log(result) // hello
 })();
+```
 
 ### Install NVM for Nodejs
 
 ```bash
- curl https://raw.githubusercontent.com/creationix/nvm/master/install.sh | bash
-  source ~/.bashrc
-  nvm install 16
-  npm i
+curl https://raw.githubusercontent.com/creationix/nvm/master/install.sh | bash
+source ~/.bashrc
+nvm install 16
+npm i
 ```
