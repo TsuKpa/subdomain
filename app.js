@@ -25,10 +25,14 @@ const configNginx = async (name, port) => {
         `sudo nginx -t`,
         `sudo service nginx reload`,
     ];
-    for (const cmd of cmds) {
+    for (let index = 0; index < cmds.length; index++) {
+        const cmd = cmds[index];
         console.log('Running command: ' + cmd);
         try {
             await run(cmd);
+            if (index === cmds.length - 1) {
+                console.log(`Create nginx config for \n subdomain: ${subdomain} \t port: ${port} \t success.`);
+            }
         } catch (error) {
             console.log(error);
         }
