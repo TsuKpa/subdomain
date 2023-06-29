@@ -31,7 +31,7 @@ const configNginx = async (name, port) => {
         try {
             await run(cmd);
             if (index === cmds.length - 1) {
-                console.log(`Create nginx config for \n subdomain: ${subdomain} \t port: ${port} \t success.`);
+                console.log(`Create nginx config for \n subdomain: ${name} \t port: ${port} \t success.`);
             }
         } catch (error) {
             console.log(error);
