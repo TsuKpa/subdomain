@@ -28,7 +28,7 @@ const configNginx = async (name, port) => {
     for (const cmd of cmds) {
         console.log('Running command: ' + cmd);
         // const log = await run(cmd);
-        console.log('Output: '+ log);
+        // console.log('Output: '+ log);
     }
 };
 
