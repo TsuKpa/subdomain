@@ -48,7 +48,13 @@ const main = async () => {
     app.post('/', async (req, res) => {
         // res.send('POST request to the homepage');
         console.log(req.headers, req.body);
-        await configNginx(req.body.name, req.body.port);
+        const data = {
+            name: req.body.name || null,
+            port: req.body.port || null
+        };
+        if (data.name && data.port) {        
+            await configNginx(req.body.name, req.body.port);
+        }
     });
 
     // error handler
