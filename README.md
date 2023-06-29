@@ -103,3 +103,12 @@ function run(cmd) {
   const result = await run('sudo service nginx reload')
   console.log(result) // hello
 })();
+
+### Install NVM for Nodejs
+
+```bash
+ curl https://raw.githubusercontent.com/creationix/nvm/master/install.sh | bash
+  source ~/.bashrc
+  nvm install 16
+  npm i
+```

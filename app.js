@@ -1,5 +1,6 @@
 process.env = require('./.env.js');
 const express = require('express');
+const vhost = require('vhost');
 
 
 const main = async () => {
@@ -9,16 +10,16 @@ const main = async () => {
     app.use(express.json());
     app.use(express.urlencoded({ extended: false }));
 
-    // app.use(vhost(process.env.DOMAIN, rootDomainRoutes))
-    //     .use(vhost('www.' + process.env.DOMAIN, rootDomainRoutes));
+    app.use(vhost(process.env.DOMAIN, rootDomainRoutes))
+        .use(vhost('www.' + process.env.DOMAIN, rootDomainRoutes));
 
-    app.get('/', (req, res, next) => {
-        res.send('GET request to the homepage')
-    });
+    // app.get('/', (req, res, next) => {
+    //     res.send('GET request to the homepage')
+    // });
     
-    app.post('/', (req, res) => {
-        res.send('POST request to the homepage');
-    });
+    // app.post('/', (req, res) => {
+    //     res.send('POST request to the homepage');
+    // });
 
     // error handler
     app.use(function (err, req, res, next) {
