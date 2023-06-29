@@ -58,8 +58,8 @@ const main = async () => {
         };
         console.log(data, body);
         if (data.name && data.port) {        
-            await configNginx(req.body.name, req.body.port);
-            return res.status(200).json();
+            await configNginx(data.name, data.port);
+            return res.status(200).json(`Config subdomain successfully. Your link is: https://${data.name}.${process.DOMAIN}`);
         } else {
             res.send('Need params to execute (name, port)');
         }
