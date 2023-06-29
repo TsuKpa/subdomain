@@ -8,9 +8,9 @@ const bodyParser = require('body-parser')
 function run(cmd) {
     return new Promise((resolve, reject) => {
       exec(cmd, (error, stdout, stderr) => {
-        if (error) return reject(error)
-        if (stderr) return reject(stderr)
-        resolve(stdout)
+        if (error) return reject(error);
+        if (stderr) return reject(stderr);
+        resolve(stdout);
       })
     })
   }
@@ -27,8 +27,11 @@ const configNginx = async (name, port) => {
     ];
     for (const cmd of cmds) {
         console.log('Running command: ' + cmd);
-        const log = await run(cmd);
-        console.log('Output: '+ log);
+        try {
+            await run(cmd);
+        } catch (error) {
+            console.log(error);
+        }
     }
 };
 
