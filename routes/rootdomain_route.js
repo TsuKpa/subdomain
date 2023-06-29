@@ -1,36 +1,11 @@
 const express = require('express');
 const router = express.Router();
-const User = require('../models/user.js');
 
 router.get('/', async (req, res, next) => {
-    var allUsers = await User.find({});
-
-    return res.render('rootdomain', {
-        title: 'Accessing: ' + req.vhost.hostname,
-        allUsers: allUsers.map((user) => {
-            return {
-                ...user._doc,
-                link: 'https://' + user.link,
-                fullname: user.fullname,
-            };
-        }),
-    });
+    res.send('GET request to the homepage')
 });
 
 router.post('/', async (req, res) => {
-    try {
-        let data = {
-            email: req.body.email,
-            username: req.body.username,
-            firstname: req.body.firstname,
-            lastname: req.body.lastname,
-        };
-
-        var user = new User(data);
-        await user.save();
-        return res.redirect('/');
-    } catch (error) {
-        return res.json({ ...error });
-    }
+    res.send('POST request to the homepage');
 });
 module.exports = router;
