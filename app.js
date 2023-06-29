@@ -17,17 +17,17 @@ function run(cmd) {
 
 const configNginx = async (name, port) => {
     const cmds = [
-        `cp ./configs/subdomain.conf ./configs/${name}.conf`
+        `cp ./configs/subdomain.conf ./configs/${name}.conf`,
         `sed -i s/subdomain/${name}/g ./configs/${name}.conf`,
         `sed -i s/9000/${port}/g ./configs/${name}.conf`,
         `cp ./configs/${name}.conf /etc/nginx/sites-available/${name}.conf`,
         `ln -s /etc/nginx/sites-available/${name}.conf /etc/nginx/sites-enabled/`,
         `nginx -t`,
-        `sudo service nginx reload`
+        `sudo service nginx reload`,
     ];
     for (const cmd of cmds) {
         console.log('Running command: ' + cmd);
-        const log = await run(cmd);
+        // const log = await run(cmd);
         console.log('Output: '+ log);
     }
 };
