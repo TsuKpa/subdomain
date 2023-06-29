@@ -1,7 +1,7 @@
 process.env = require('./.env.js');
 const express = require('express');
 const vhost = require('vhost');
-
+const rootDomainRoutes = require('./routes/rootdomain_route');
 
 const main = async () => {
     const app = express();
