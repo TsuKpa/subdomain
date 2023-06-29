@@ -21,7 +21,7 @@ const configNginx = async (name, port) => {
         `sed -i s/subdomain/${name}/g ./configs/${name}.conf`,
         `sed -i s/9000/${port}/g ./configs/${name}.conf`,
         `sudo cp ./configs/${name}.conf /etc/nginx/sites-available/${name}.conf`,
-        `ln -s /etc/nginx/sites-available/${name}.conf /etc/nginx/sites-enabled/`,
+        `sudo ln -s /etc/nginx/sites-available/${name}.conf /etc/nginx/sites-enabled/`,
         `sudo nginx -t`,
         `sudo service nginx reload`,
     ];
