@@ -3,8 +3,6 @@ const express = require('express');
 const { exec } = require('child_process')
 const bodyParser = require('body-parser')
 
-// const vhost = require('vhost');
-// const rootDomainRoutes = require('./routes/rootdomain_route');
 function run(cmd) {
     return new Promise((resolve, reject) => {
       exec(cmd, (error, stdout, stderr) => {
@@ -45,9 +43,6 @@ const main = async () => {
 
     app.use(bodyParser.json())
     app.use(bodyParser.urlencoded({ extended: false }))
-
-    // app.use(vhost(process.env.DOMAIN, rootDomainRoutes))
-    //     .use(vhost('www.' + process.env.DOMAIN, rootDomainRoutes));
 
     app.get('/', (req, res, next) => {
         res.send('GET request to the homepage')

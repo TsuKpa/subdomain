@@ -1,4 +1,26 @@
-#### subdomain create app
+# Cấu hình Dynamic Subdomains có SSL với Docker Container có sẵn trên Nginx
+
+## 1. Môi trường test
+
+1 Con EC2 với SSH truy cập từ internet:
+
+- Đã cài đặt Nginx, snap, docker, nvm, nodejs.
+- Source code app đã chạy trên port 9000
+- Đã cấu hình SSL trên domain
+- 1 Container port 3040 chạy http server đơn giản
+- Postman để gửi request
+
+### Minh họa thực hiện (name: "test", port: 3040)
+- Khi chưa gửi request 
+![chua gui request]()
+
+
+- Gửi request bằng Postman
+![chua gui request]()
+
+- Domain được tạo thành công
+![tao thanh cong]()
+
 
 ``` bash
 1. docker create httpd
