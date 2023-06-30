@@ -1,5 +1,6 @@
 # Cấu hình Dynamic Subdomains có SSL với Docker Container có sẵn trên Nginx
 
+![TOPOLOGY](/assets/topo.png)
 ## 1. Môi trường test
 
 1 EC2 với SSH truy cập từ internet:
